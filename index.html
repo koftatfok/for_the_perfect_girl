@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <link rel="stylesheet" href="indexstyle.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>З днем народження Альчику!</title>
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Slab" rel="stylesheet"/>
+    <link rel="shortcut icon" type="image/png" href="birthday.png">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .card {
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 10%;
+            max-width: 500px;
+        }
+    </style>
+</head>
+<body>
+<!-- Кнопка для запуску музики -->
+<button id="startButton" style="
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 9999;
+      padding: 20px;
+      font-size: 18px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;">
+    Тицьни для магії!</button>
+
+<!-- Центруємо основний контейнер -->
+    <div id="container" style="display:none">
+        <div class="s-2"></div>
+        <div class="card">
+            <div class="sides left-side">
+                <h1 class="profession">З днем На</h3>
+                    <h3 class="name">♥Аль</h3>
+            </div>
+            <div class="sides right-side">
+                <h1 class="profession">родження!</h3>
+                    <h3 class="name">чик♥</h3>
+            </div>
+            <div class="back-side">
+                <p class="biography">
+                    Час тік-тікає і вже ми знайомі не перший рік,
+                    і хочу сказати що ти справді подорослішала і стала більш жіночнішою та гарною.
+                    Тобі ще трішки і буде за 20, а це вже огого, тому треба обов'язково побажати здоров'я та удачі...
+                    Я впевнений, що щастя настигне тебе саме тому не тікай від нього, бо оно може бути трошки привередливим♥
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+<!-- Анімація завантаження -->
+<div class="lording" style="display:none">
+    <div class="center">
+        <div class="ring"></div>
+        <span>loading...</span>
+    </div>
+</div>
+
+<!-- Аудіо елемент -->
+<audio id="hbdmp" preload="auto">
+    <source src="pozhary.mp3" type="audio/mp3">
+    Your browser does not support the audio element.
+</audio>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var audio = document.getElementById('hbdmp');
+        var startButton = document.getElementById('startButton');
+        var container = document.getElementById('container');
+        var loading = document.querySelector('.lording');
+
+        startButton.addEventListener('click', function() {
+            // Запускаємо музику
+            var playPromise = audio.play();
+
+            if (playPromise !== undefined) {
+                playPromise.catch(function(error) {
+                    console.error('Помилка відтворення музики:', error);
+                });
+            }
+
+            // Ховаємо кнопку
+            startButton.style.display = 'none';
+
+            // Показуємо анімацію завантаження
+            loading.style.display = 'block';
+
+            setTimeout(function() {
+                loading.style.display = 'none';
+                // Показуємо контейнер
+                container.style.display = 'block';
+            }, 5000);
+        });
+
+        // Повторюємо музику
+        audio.addEventListener('ended', function() {
+            this.currentTime = 0;
+            this.play();
+        });
+    });
+</script>
+</body>
+</html>
